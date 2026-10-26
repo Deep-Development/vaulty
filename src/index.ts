@@ -18,8 +18,8 @@ if (process.argv.length <= 2) {
   const RIGHT = 30;
   const V_WIDTH = 11;
   const V_HEIGHT = 5;
-  const TOP = [125, 211, 252];
-  const BOTTOM = [30, 27, 75];
+  const TOP: readonly [number, number, number] = [125, 211, 252];
+  const BOTTOM: readonly [number, number, number] = [30, 27, 75];
   const SHADES = ['█', '▓', '▒', '░'];
   const lerp = (a: number, b: number, t: number) => Math.round(a + (b - a) * t);
   const isOn = (y: number, x: number) =>
