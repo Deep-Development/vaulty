@@ -1,0 +1,27 @@
+{
+  "name": "vaulty-cli",
+  "version": "1.0.0",
+  "description": "A secure CLI to manage environment variables and protect .env files",
+  "main": "dist/index.js",
+  "bin": {
+    "vaulty": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsx src/index.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "type": "commonjs",
+  "devDependencies": {
+    "@types/node": "^26.6.5",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2"
+  },
+  "dependencies": {
+    "chalk": "^6.0.1",
+    "commander": "^15.0.0",
+    "ora": "^9.4.1"
+  }
+}
