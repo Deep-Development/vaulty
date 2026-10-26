@@ -28,7 +28,9 @@ if (process.argv.length <= 2) {
   const logo: string[] = [];
   for (let y = 0; y < V_HEIGHT; y++) {
     const t = y / (V_HEIGHT - 1);
-    const [r, g, b] = TOP.map((v, i) => lerp(v, BOTTOM[i], t));
+    const r = lerp(TOP[0], BOTTOM[0], t);
+    const g = lerp(TOP[1], BOTTOM[1], t);
+    const b = lerp(TOP[2], BOTTOM[2], t);
     const color = chalk.rgb(r, g, b);
     const shade = SHADES[Math.min(SHADES.length - 1, Math.floor((y / V_HEIGHT) * SHADES.length))];
     let line = '';
