@@ -1,7 +1,9 @@
+#!/usr/bin/env node
 import { Command } from 'commander';
 import chalk from 'chalk';
 import { createSpinner } from './utils/spinner.js';
 import { genJwt } from './utils/secret.js';
+import { init } from './commands/init.js';
 
 const program = new Command();
 
@@ -110,6 +112,30 @@ program
     await sleep(600);
 
     spinner.succeed(chalk.green('Project is safe! .env files are blocked from git.\n'));
+  });
+
+program
+  .command('init')
+  .description('Protect repo by updating .gitignore and installing pre-commit hooks')
+  .option('--no-hooks', "Don't install pre-commit hooks")
+  .action(async (opts) => {
+    try {
+      const res = await init({ hooks: opts.hooks !== false });
+      console.log(chalk.green('\n✓ Vaulty initialized'));
+      console.log(chalk.gray(`  Repo: ${res.root}`));
+      if (res.trackedEnv.length) {
+        console.log(chalk.yellow(`  ⚠ Tracked env files found: ${res.trackedEnv.join(', ')}`));
+        console.log(chalk.gray('    Run "git rm --cached <file>" to stop tracking them'));
+      }
+      console.log(chalk.gray('  .gitignore updated with vaulty block'));
+      if (opts.hooks !== false) {
+        console.log(chalk.gray('  Pre-commit hook installed (.vaulty/hooks/pre-commit)'));
+      }
+      console.log('');
+    } catch (e) {
+      console.error(chalk.red(`\n✖ ${(e as Error).message}\n`));
+      process.exit(1);
+    }
   });
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
